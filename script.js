@@ -1,4 +1,23 @@
 "use strict"
+const crearEtiqueta = (nombre = null, atributos = {}, contenido = "") => {
+
+    if (!nombre){
+        return;
+    }
+
+    let etiqueta = document.createElement(nombre);
+
+    for (const atributo in atributos) {
+        etiqueta.setAttribute(atributo, atributos[atributo]);
+    }
+
+    if (contenido){
+        etiqueta.innerText = contenido;
+    }
+
+    return etiqueta;
+};
+
 
 const url = "https://api.themoviedb.org/3/";
 const discoverMovie = "discover/movie";
@@ -46,36 +65,23 @@ function mostrarPeliculas(pelicula) {
     let fecha = pelicula["release_date"].slice(0, 4);
     let puntaje = pelicula["vote_average"].toLocaleString('es');
 
-    let divPelis = document.createElement("div");
-    divPelis.setAttribute("class", "peli col-2");
+    let divPelis = crearEtiqueta("div", {class: "peli col-2"});
 
-    let divZoom = document.createElement("div");
-    divZoom.setAttribute("class", "zoom");
+    let divZoom = crearEtiqueta("div", {class: "zoom"});  
 
-    let button = document.createElement("button");
-    button.setAttribute("class", "bi bi-heart-fill");
+    let button = crearEtiqueta("button", {class: "bi bi-heart-fill"});
 
-    let img = document.createElement("img");
-    img.setAttribute('src', `${poster}`);
-    img.setAttribute('alt', `Poster de ${nombre}`);
+    let img = crearEtiqueta("img", {src: poster, alt: `Poster de ${nombre}`});
 
-    let divContainer = document.createElement("div");
-    divContainer.setAttribute("class", "container");
+    let divContainer = crearEtiqueta("div", {class: "container"});
 
-    let divDatos = document.createElement("div");
-    divDatos.setAttribute("class", "contenedor-datos-pelis row");
+    let divDatos = crearEtiqueta("div", {class: "contenedor-datos-pelis row"});
 
-    let h3 = document.createElement("h3");
-    h3.setAttribute("class", "col-8");
-    h3.innerText = `${nombre}`;
+    let h3 = crearEtiqueta("h3", {class: "col-8"}, `${nombre}`);
 
-    let p1 = document.createElement("p");
-    p1.setAttribute("class", "col-4");
-    p1.innerText = `${fecha}`;
+    let p1 = crearEtiqueta("p", {class: "col-4"}, `${fecha}`);
 
-    let p2 = document.createElement("p");
-    p2.setAttribute("class", "col-12");
-    p2.innerText = `Puntaje: ${puntaje}`;
+    let p2 = crearEtiqueta("p", {class: "col-12"}, `Puntaje: ${puntaje}`);
 
     divDatos.append(h3, p1, p2);
     divContainer.append(divDatos);
