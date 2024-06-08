@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.sr-only {
+    position:absolute;
+    left:-10000px;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+}
+
+body{
+    background-color: #263238;
+}
+
+header{
+    background-image: url('../img/interestelar-poster.webp');
+    mask-image: linear-gradient(black 60%, transparent);
+    height: 800px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+header *{
+    font-weight: 600;
+}
+
+h2{
+    font-size: 2rem;
+    color: #e7e8ec;
+    text-align: center;
+    padding-top: 2rem;
+}
+
+.contenedor-general{
+        max-width: 1920px;
+        margin: auto;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+}
+
+#mostrar{
+
+    margin: auto;
+}
+
+.zoom{
+    overflow: hidden;
+    border-radius: 1vh;
+    position: relative;
+} 
+
+.zoom img{
+    width: 100%;
+    transition: 0.3s ease-in-out;
+    border-radius: 1vh;
+    cursor: pointer;
+}
+
+.zoom button{
+    position:absolute;
+    z-index: 10;
+    right: 0.8rem;
+    bottom: 0.2rem;
+    background: none;
+    border: none;
+}
+
+.zoom button i{
+    font-size: 1.5rem;
+    color: whitesmoke;
+
+}
+
+.zoom button i:hover{
+    transition: 0.2s ease-in-out;
+    color: red;
+}
+
+.peli img:hover{
+    transform: scale(1.1);
+}
+
+.contenedor-datos-pelis{
+    color: #e7e8ec;
+    padding-block: 1rem;
+}
+.contenedor-datos-pelis h3{
+    font-size: 1rem; 
+    font-weight: 700;
+}
+
+.contenedor-datos-pelis p{
+    font-size: 0.9rem;
+}
+
+
+footer{
+    margin-top: auto;
+    background-color: black;
+    color: #e7e8ec;
+}

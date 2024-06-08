@@ -5,29 +5,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Parcial 2 PWA </title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
 
-    <header>
-        <nav>
+    <div class="contenedor-general">
+        <header>
+
             
-        </nav>
 
-    </header>
+             <nav class="navbar navbar-expand-lg bg-transparent">
+                <div class="container d-flex justify-content-between">
+                  <a class="navbar-brand" href="#"><h1">PELIS</h1></a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="input-group d-none d-lg-flex">
+                    <input type="search" class="form-control" placeholder="Buscar" aria-label="nombrepelicula" aria-describedby="button-addon2" id="busqueda" name="busqueda">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
+                </div>
+                  <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <div class="input-group d-lg-none w-50">
+                        <input type="search" class="form-control" placeholder="Buscar" aria-label="nombrepelicula" aria-describedby="button-addon2" id="busqueda" name="busqueda">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
+                    </div>
+                    <ul class="navbar-nav">
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Favoritos</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav> 
+        </header>
+        <main>
+                <h2>Listado de Películas</h2>
+            <div class="contenedor-pelis container">
+                <div class="row" id="mostrar">
+                   
+                </div>
+            </div>
+        
+        </main>
+        <footer>
+            <p>Parcial 2 PWA</p>
+        </footer>
+    </div>
 
-    <main>
-
-            <h1>Películas</h1>
-            <h2>testeando funcionamiento</h2>
-
-           
-
-    </main>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
 
