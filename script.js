@@ -1,6 +1,80 @@
 "use strict"
 
-let peliculas = [
+const url = "https://api.themoviedb.org/3/";
+const discoverMovie = "discover/movie";
+const imgUrl = "https://image.tmdb.org/t/p/original/"
+const APIkey = "?api_key=d973d2935b855eebb89abf06fd502657";
+
+//FETCH
+
+const requestPeliculas = () => {
+    fetch(url + discoverMovie + APIkey)
+        .then(respuesta => respuesta.json())
+        .then(respuesta => {
+            const resultados = respuesta.results;
+
+            resultados.forEach(element => {
+                console.log(resultados);
+
+                // Llamo la funcion mostrar peliculas que renderiza un resumen de cada peli
+                mostrarPeliculas(element);
+            });
+
+        });
+}
+
+requestPeliculas();
+
+function mostrarPeliculas(pelicula) {
+    let mostrarPeliculas = document.getElementById("mostrar");
+
+    // Traigo datos desde la API
+    let posterUrl = pelicula["poster_path"];
+    let poster = imgUrl + posterUrl;
+    let nombre = pelicula["title"];
+    let fecha = pelicula["release_date"].slice(0, 4);
+    // let director = pelicula[""];
+
+    let divPelis = document.createElement("div");
+    divPelis.setAttribute("class", "peli col-2");
+
+    let divZoom = document.createElement("div");
+    divZoom.setAttribute("class", "zoom");
+
+    let button = document.createElement("button");
+    button.setAttribute("class", "bi bi-heart-fill");
+
+    let img = document.createElement("img");
+    img.setAttribute('src', `${poster}`);
+    img.setAttribute('alt', `Poster de ${nombre}`);
+
+    let divContainer = document.createElement("div");
+    divContainer.setAttribute("class", "container");
+
+    let divDatos = document.createElement("div");
+    divDatos.setAttribute("class", "contenedor-datos-pelis row");
+
+    let h3 = document.createElement("h3");
+    h3.setAttribute("class", "col-8");
+    h3.innerText = `${nombre}`;
+
+    let p1 = document.createElement("p");
+    p1.setAttribute("class", "col-4");
+    p1.innerText = `${fecha}`;
+
+    let p2 = document.createElement("p");
+    p2.setAttribute("class", "col-12");
+    p2.innerText = `Dirigida por: `;
+
+    divDatos.append(h3, p1, p2);
+    divContainer.append(divDatos);
+    divZoom.append(button, img);
+    divPelis.append(divZoom, divContainer);
+    mostrarPeliculas.append(divPelis);
+
+}
+
+/*let peliculas = [
     {
     nombre:"Nace una Estrella",
     fecha: "1937",
@@ -61,31 +135,4 @@ let peliculas = [
     director: "Matt Reeves",
     poster: "img/the-batman.webp"
 }
-]
-
-function mostrarPeliculas() {
-    let mostrarPeliculas = document.getElementById("mostrar");
-    let contenidoHTML = '';
-
-    for (const peli of peliculas) {
-        contenidoHTML += 
-        `<div class="peli col-2">
-            <div class="zoom">
-                <button><i class="bi bi-heart-fill"></i></button>
-                <img src="${peli.poster}" alt="Poster de ${peli.nombre}">   
-            </div>
-            <div class="container">
-                <div class="contenedor-datos-pelis row">
-                    <h3 class="col-8">${peli.nombre}</h3>
-                    <p class="col-4">${peli.fecha}</p>
-                    <p class="col-12">Dirigida por: ${peli.director}</p>
-                </div>
-            </div>
-        </div>`;
-    }
-
-    mostrarPeliculas.innerHTML = contenidoHTML;
-}
-
-mostrarPeliculas();
-
+]*/
