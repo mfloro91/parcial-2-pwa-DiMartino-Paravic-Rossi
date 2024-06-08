@@ -2,6 +2,7 @@
 
 const url = "https://api.themoviedb.org/3/";
 const discoverMovie = "discover/movie";
+const urlDetalles = "https://api.themoviedb.org/3/movie/"
 const imgUrl = "https://image.tmdb.org/t/p/original/"
 const APIkey = "?api_key=d973d2935b855eebb89abf06fd502657";
 
@@ -14,10 +15,20 @@ const requestPeliculas = () => {
             const resultados = respuesta.results;
 
             resultados.forEach(element => {
-                console.log(resultados);
 
                 // Llamo la funcion mostrar peliculas que renderiza un resumen de cada peli
                 mostrarPeliculas(element);
+
+                // Guardo ID
+                const id = element["id"];
+
+                // Hago otro fetch para traer detalles de peliculas por ID
+                fetch(urlDetalles + id + APIkey)
+                    .then(respuestaDetalles => respuestaDetalles.json())
+                    .then(respuestaDetalles => {
+                        const resultadosDetalles = respuestaDetalles;
+                        console.log(resultadosDetalles);
+                    });
             });
 
         });
@@ -33,7 +44,7 @@ function mostrarPeliculas(pelicula) {
     let poster = imgUrl + posterUrl;
     let nombre = pelicula["title"];
     let fecha = pelicula["release_date"].slice(0, 4);
-    // let director = pelicula[""];
+    let puntaje = pelicula["vote_average"].toLocaleString('es');
 
     let divPelis = document.createElement("div");
     divPelis.setAttribute("class", "peli col-2");
@@ -64,7 +75,7 @@ function mostrarPeliculas(pelicula) {
 
     let p2 = document.createElement("p");
     p2.setAttribute("class", "col-12");
-    p2.innerText = `Dirigida por: `;
+    p2.innerText = `Puntaje: ${puntaje}`;
 
     divDatos.append(h3, p1, p2);
     divContainer.append(divDatos);
