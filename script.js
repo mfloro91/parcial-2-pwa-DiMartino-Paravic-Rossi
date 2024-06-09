@@ -1,4 +1,4 @@
-"use strict"
+
 const crearEtiqueta = (nombre = null, atributos = {}, contenido = "") => {
 
     if (!nombre){
@@ -17,7 +17,6 @@ const crearEtiqueta = (nombre = null, atributos = {}, contenido = "") => {
 
     return etiqueta;
 };
-
 
 const url = "https://api.themoviedb.org/3/";
 const discoverMovie = "discover/movie";
@@ -46,7 +45,6 @@ const requestPeliculas = () => {
                     .then(respuestaDetalles => respuestaDetalles.json())
                     .then(respuestaDetalles => {
                         const resultadosDetalles = respuestaDetalles;
-                        console.log(resultadosDetalles);
                     });
             });
 
@@ -65,7 +63,7 @@ function mostrarPeliculas(pelicula) {
     let fecha = pelicula["release_date"].slice(0, 4);
     let puntaje = pelicula["vote_average"].toLocaleString('es');
 
-    let divPelis = crearEtiqueta("div", {class: "peli col-2"});
+    let divPelis = crearEtiqueta("div", {class: "peli col-6 col-md-4 col-lg-2"});
 
     let divZoom = crearEtiqueta("div", {class: "zoom"});  
 
@@ -95,65 +93,18 @@ function mostrarPeliculas(pelicula) {
     mostrarPeliculas.append(divPelis);
 }
 
-/*let peliculas = [
-    {
-    nombre:"Nace una Estrella",
-    fecha: "1937",
-    director:"William A. Wellman",
-    poster:"img/nace-una-estrella.webp",
-},
-{
-    nombre:"La Soga",
-    fecha: "1948",
-    director:"Alfred Hitchchock",
-    poster:"img/la-soga.webp",
-},
-{
-    nombre: "A la hora señalada",
-    fecha: "1952",
-    director: "Fred Zinnemann",
-    poster: "img/la-hora-senalada.webp"
-},
-{
-    nombre: "2001: odisea del espacio",
-    fecha: "1968",
-    director: "Stanley Kubrick",
-    poster: "img/odisea-del-espacio.webp"
-},
-{
-    nombre: "El Padrino",
-    fecha: "1972",
-    director: "Francis Ford Coppola",
-    poster: "img/el-padrino.webp"
-},
-{
-    nombre: "Volver al Futuro",
-    fecha: "1985",
-    director: "Robert Zemeckis",
-    poster: "img/volver-al-futuro.webp"
-},
-{
-    nombre: "Perfume de Mujer",
-    fecha: "1992",
-    director: "Martin Brest",
-    poster: "img/perfume-de-mujer.webp"
-},
-{
-    nombre: "Shrek",
-    fecha: "2001",
-    director: "Andrew Adamson",
-    poster: "img/shrek.webp"
-},
-{
-    nombre: "Interestelar",
-    fecha: "2014",
-    director: "Christopher Nolan",
-    poster: "img/interestelar.webp"
-},
-{
-    nombre: "The Batman",
-    fecha: "2022",
-    director: "Matt Reeves",
-    poster: "img/the-batman.webp"
+const toastContent = document.querySelector(".toast");
+const toast = new bootstrap.Toast(toastContent);
+const toastMessage = document.querySelector(".toast-body");
+
+
+if (navigator.serviceWorker) {
+    navigator.serviceWorker.register('./sw.js')
+        .then((reg) => {
+            toast.show(toastMessage.innerText = "Modo offline activado");
+        })
+        .catch((err) => {
+            
+            toast.show(toastMessage.innerText = "Modo offline no disponible");
+        });
 }
-]*/
