@@ -73,6 +73,11 @@ function mostrarPeliculas(pelicula) {
 
     let img = crearEtiqueta("img", {src: poster, alt: `Poster de ${nombre}`});
 
+    // Agregar event listener para redirigir a pelicula.html con el ID de la película
+    img.addEventListener("click", () => {
+        window.location.href = `pelicula.html?id=${pelicula.id}`;
+    });
+
     let divContainer = crearEtiqueta("div", {class: "container"});
 
     let divDatos = crearEtiqueta("div", {class: "contenedor-datos-pelis row"});
@@ -88,7 +93,6 @@ function mostrarPeliculas(pelicula) {
     divZoom.append(button, img);
     divPelis.append(divZoom, divContainer);
     mostrarPeliculas.append(divPelis);
-
 }
 
 /*let peliculas = [
