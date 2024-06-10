@@ -1,10 +1,9 @@
 const CACHE_NAME = "caches";
-const LISTA = [
-    '/',
-    '/script.js',
-    '/detalles.js',
-    'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
-    '/styles/style.css',
+const lista = [
+    `/`,
+    `script.js`,
+    `detalles.js`,
+    `styles/style.css`,
     `index.html`,
     `pelicula.html`
 ]
@@ -22,7 +21,7 @@ self.addEventListener('install', (event) => {
         caches.has(CACHE_NAME).then(estaInstalado => {
             if(!estaInstalado){
                 return caches.open(CACHE_NAME).then(function (cacheObject){
-                    cacheObject.addAll(LISTA);
+                    cacheObject.addAll(lista);
                 })
             }
         })
