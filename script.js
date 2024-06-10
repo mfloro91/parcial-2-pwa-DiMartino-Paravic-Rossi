@@ -1,4 +1,24 @@
+const toastContent = document.querySelector(".toast");
+const toast = new bootstrap.Toast(toastContent);
+const toastMessage = document.querySelector(".toast-body");
 
+// Registro del SW
+
+window.addEventListener(`DOMContentLoaded`, function () {
+if (`serviceWorker` in navigator) {
+    navigator.serviceWorker.register('sw.js')
+        .then((reg) => {
+            toast.show(toastMessage.innerText = "Modo offline activado");
+        })
+        .catch((err) => {
+            
+            toast.show(toastMessage.innerText = "Modo offline no disponible");
+        });
+}
+
+});
+
+// Funcion que optimiza la creación de elementos DOM
 const crearEtiqueta = (nombre = null, atributos = {}, contenido = "") => {
 
     if (!nombre){
@@ -53,6 +73,8 @@ const requestPeliculas = () => {
 
 requestPeliculas();
 
+
+// Funcion que imprime cards con peliculas
 function mostrarPeliculas(pelicula) {
     let mostrarPeliculas = document.getElementById("mostrar");
 
@@ -93,18 +115,3 @@ function mostrarPeliculas(pelicula) {
     mostrarPeliculas.append(divPelis);
 }
 
-const toastContent = document.querySelector(".toast");
-const toast = new bootstrap.Toast(toastContent);
-const toastMessage = document.querySelector(".toast-body");
-
-
-if (navigator.serviceWorker) {
-    navigator.serviceWorker.register('./sw.js')
-        .then((reg) => {
-            toast.show(toastMessage.innerText = "Modo offline activado");
-        })
-        .catch((err) => {
-            
-            toast.show(toastMessage.innerText = "Modo offline no disponible");
-        });
-}
