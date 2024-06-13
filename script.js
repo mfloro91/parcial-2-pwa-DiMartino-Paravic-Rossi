@@ -4,7 +4,7 @@ const toastMessage = document.querySelector(".toast-body");
 
 // Registro del SW
 
-window.addEventListener(`DOMContentLoaded`, function () {
+ window.addEventListener(`DOMContentLoaded`, function () {
 if (`serviceWorker` in navigator) {
     navigator.serviceWorker.register('sw.js')
         .then((reg) => {
@@ -16,7 +16,7 @@ if (`serviceWorker` in navigator) {
         });
 }
 
-});
+}); 
 
 // Funcion que optimiza la creación de elementos DOM
 const crearEtiqueta = (nombre = null, atributos = {}, contenido = "") => {
@@ -67,11 +67,12 @@ const requestPeliculas = () => {
                         const resultadosDetalles = respuestaDetalles;
                     });
             });
-
+            busqueda(resultados);
         });
 }
 
 requestPeliculas();
+
 
 
 // Funcion que imprime cards con peliculas
@@ -115,3 +116,23 @@ function mostrarPeliculas(pelicula) {
     mostrarPeliculas.append(divPelis);
 }
 
+
+const busqueda = (datos = []) => {
+    const buscarInput = document.getElementById("busqueda");
+    const btnBuscar = document.getElementById("button-addon2");
+
+
+    const buscar = () => {
+        const peliBuscada = buscarInput.value.toLowerCase();
+
+        datos.forEach(pelicula =>{
+            if(pelicula["title"].toLowerCase() == peliBuscada){
+                window.location.href = `pelicula.html?id=${pelicula.id}`;
+            }else{
+                toast.show(toastMessage.innerText = "Película no encontrada");
+            }
+        });
+    }
+    buscarInput.addEventListener("search", buscar);
+    btnBuscar.addEventListener("click", buscar);
+}

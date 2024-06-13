@@ -12,11 +12,11 @@ const lista = [
 
 // Instalación y precaching
 
-self.addEventListener('install', (event) => {
+ self.addEventListener('install', (event) => {
     console.log('SW: Instalado');
     // Evita el período de espera del navegador    
-    self.skipWaiting();
-
+   self.skipWaiting();
+ 
     event.waitUntil(
         caches.has(CACHE_NAME).then(estaInstalado => {
             if(!estaInstalado){
@@ -46,4 +46,4 @@ self.addEventListener('fetch', (event) => {
         return nuevaRespuesta;
     })    
 event.respondWith(consultaCache);
-})
+}) 
