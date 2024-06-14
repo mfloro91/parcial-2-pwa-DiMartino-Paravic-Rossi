@@ -21,7 +21,7 @@ body{
 }
 
 header{
-    background-image: url('../img/interestelar-poster.webp');
+    background-image: url('../images/interestelar-poster.webp');
     mask-image: linear-gradient(black 60%, transparent);
     height: 800px;
     background-repeat: no-repeat;
@@ -116,4 +116,10 @@ footer{
     margin-top: auto;
     background-color: black;
     color: #e7e8ec;
+    text-align: center;
 }
+
+li {
+    list-style: none;
+}
+
