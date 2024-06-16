@@ -2,7 +2,6 @@ const urlDetalles = "https://api.themoviedb.org/3/movie/";
 const imgUrl = "https://image.tmdb.org/t/p/original/";
 const APIkey = "?api_key=d973d2935b855eebb89abf06fd502657";
 
-
 const urlParams = new URLSearchParams(window.location.search);
 const movieId = urlParams.get('id');
 
@@ -18,7 +17,6 @@ if (movieId) {
 function mostrarDetallesPelicula(pelicula) {
     const detallesDiv = document.getElementById("detallesPelicula");
 
-//---
     const posterUrl = pelicula["poster_path"];
     const poster = imgUrl + posterUrl;
     const nombre = pelicula["title"];
@@ -26,22 +24,22 @@ function mostrarDetallesPelicula(pelicula) {
     const puntaje = pelicula["vote_average"].toLocaleString('es');
     const descripcion = pelicula["overview"];
 
-    const img = document.createElement("img");
-    img.src = poster;
-    img.alt = `Poster de ${nombre}`;
-    img.className = "img-fluid";
-
-    const h3 = document.createElement("h3");
-    h3.textContent = nombre;
-
-    const pFecha = document.createElement("p");
-    pFecha.textContent = `Fecha de lanzamiento: ${fecha}`;
-
-    const pPuntaje = document.createElement("p");
-    pPuntaje.textContent = `Puntaje: ${puntaje}`;
-
-    const pDescripcion = document.createElement("p");
-    pDescripcion.textContent = descripcion;
-
-    detallesDiv.append(img, h3, pFecha, pPuntaje, pDescripcion);
+    // Crear estructura de la card
+    detallesDiv.innerHTML = `
+        <div class="card" style="max-width: 720px; margin: auto;">
+            <div class="row g-0">
+                <div class="col-md-6">
+                    <img src="${poster}" class="img-fluid rounded-start" alt="Poster de ${nombre}">
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h5 class="card-title">${nombre}</h5>
+                        <p class="card-text"><strong>Fecha de lanzamiento:</strong> ${fecha}</p>
+                        <p class="card-text"><strong>Puntaje:</strong> ${puntaje}</p>
+                        <p class="card-text">${descripcion}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
 }
