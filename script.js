@@ -18,6 +18,8 @@ window.addEventListener(`DOMContentLoaded`, function () {
 
 });
 
+
+
 // Funcion que optimiza la creación de elementos DOM
 const crearEtiqueta = (nombre = null, atributos = {}, contenido = "") => {
 
@@ -138,15 +140,15 @@ const busqueda = (datos = []) => {
 }
 
 
+let eventoInstalacion;
 
 // Activación del botón instalar
-
 window.addEventListener("beforeinstallprompt", (e) => {
     console.log("beforeinstallprompt", e)
     eventoInstalacion = e;
+});
 
-
-    // Traigo botón con DOM e instalo
+// Traigo botón con DOM e instalo
     const btnInstalacion = document.querySelector(".btn-flotante");
 
     btnInstalacion.addEventListener("click", () => {
@@ -159,17 +161,26 @@ window.addEventListener("beforeinstallprompt", (e) => {
                         toast.show(toastMessage.innerText = "Instalación Cancelada");
                     } else if (opcionElegida == "accepted") {
                         toast.show(toastMessage.innerText = "Instalación Completa");
-                        ocultarBtnInstalacion();
+                        ocultarBtnInstalacion(btnInstalacion);
                     }
                 })
                 .catch((error) => console.log("Hubo un error al instalar"))
         }
-    })
+    });
 
-})
+
 
 // Oculto botón si ya se instaló
 
-const ocultarBtnInstalacion = () => {
-    btnInstalacion.remove();
+const ocultarBtnInstalacion = (btn) => {
+    btn.style.display = "none";  
 }
+
+setTimeout(() => {
+    if(eventoInstalacion == null){
+        ocultarBtnInstalacion();
+         }
+}, 200);
+
+    
+ 
