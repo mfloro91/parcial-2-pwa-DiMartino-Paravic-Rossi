@@ -4,7 +4,7 @@ const toastMessage = document.querySelector(".toast-body");
 
 // Registro del SW
 
-window.addEventListener(`DOMContentLoaded`, function () {
+ window.addEventListener(`DOMContentLoaded`, function () {
     if (`serviceWorker` in navigator) {
         navigator.serviceWorker.register('sw.js')
             .then((reg) => {
@@ -16,7 +16,7 @@ window.addEventListener(`DOMContentLoaded`, function () {
             });
     }
 
-});
+}); 
 
 
 
@@ -48,11 +48,13 @@ const APIkey = "?api_key=d973d2935b855eebb89abf06fd502657";
 
 //FETCH
 
+let resultados = [];
+
 const requestPeliculas = () => {
     fetch(url + discoverMovie + APIkey)
         .then(respuesta => respuesta.json())
         .then(respuesta => {
-            const resultados = respuesta.results;
+            resultados = respuesta.results;
 
             resultados.forEach(element => {
 
@@ -75,7 +77,7 @@ const requestPeliculas = () => {
 
 requestPeliculas();
 
-
+const localFav = JSON.parse(localStorage.getItem("favoritos")) || [];
 
 // Funcion que imprime cards con peliculas
 function mostrarPeliculas(pelicula) {
@@ -92,7 +94,11 @@ function mostrarPeliculas(pelicula) {
 
     let divZoom = crearEtiqueta("div", { class: "zoom" });
 
-    let button = crearEtiqueta("button", { class: "bi bi-heart-fill" });
+    let button = crearEtiqueta("button", { class: "bi bi-heart-fill", id:`fav-${pelicula.id}`, onclick: "agregarFavoritos(event)"});
+
+    if(localFav.some(peli => peli.id === pelicula.id)){
+        button.style.color = "red";
+    }
 
     let img = crearEtiqueta("img", { src: poster, alt: `Poster de ${nombre}` });
 
@@ -166,21 +172,36 @@ window.addEventListener("beforeinstallprompt", (e) => {
                 })
                 .catch((error) => console.log("Hubo un error al instalar"))
         }
-    });
+    }); 
 
 
 
 // Oculto botón si ya se instaló
 
-const ocultarBtnInstalacion = (btn) => {
+ const ocultarBtnInstalacion = (btn) => {
     btn.style.display = "none";  
-}
-
-setTimeout(() => {
+} 
+ setTimeout(() => {
     if(eventoInstalacion == null){
         ocultarBtnInstalacion();
          }
-}, 200);
+}, 200); 
 
     
+const agregarFavoritos = (event) => {
+
+    const idBtn = event.target.id.split('-')[1];
+    event.target.style.color = "red";
+    
+    const favAgregado = resultados.find(pelicula => pelicula.id == idBtn);
+    
+    if(!(localFav.some(peli => peli.id === favAgregado.id))){
+       localFav.push(favAgregado);
+    } 
+     
+    localStorage.setItem("favoritos", JSON.stringify(localFav));
+
+}
+
+
  

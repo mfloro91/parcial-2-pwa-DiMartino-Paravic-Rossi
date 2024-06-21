@@ -3,8 +3,10 @@ const lista = [
     `/`,
     `script.js`,
     `detalles.js`,
+    `favoritos.js`,
     `index.html`,
     `pelicula.html`,
+    `favoritos.html`,
     `styles/style.css`,
     `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css`,
     `https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css`,
@@ -15,7 +17,7 @@ const lista = [
 
 // Instalación y precaching
 
-  self.addEventListener('install', (event) => {
+   self.addEventListener('install', (event) => {
     console.log('SW: Instalado');
     // Evita el período de espera del navegador    
    self.skipWaiting();
@@ -29,17 +31,17 @@ const lista = [
             }
         })
     );
-})
+}) 
 
  // Activación
 
 self.addEventListener('activate', () => {
     console.log('SW: Activado');
-})
+}) 
 
  // Estrategia de caché only
 
-self.addEventListener('fetch', (event) => {
+ self.addEventListener('fetch', (event) => {
     const consulta = event.request;
     const consultaCache = caches.match(consulta).then( async (respuesta)=>{
         if(respuesta) return respuesta;
