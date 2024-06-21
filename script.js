@@ -4,7 +4,7 @@ const toastMessage = document.querySelector(".toast-body");
 
 // Registro del SW
 
- window.addEventListener(`DOMContentLoaded`, function () {
+window.addEventListener(`DOMContentLoaded`, function () {
     if (`serviceWorker` in navigator) {
         navigator.serviceWorker.register('sw.js')
             .then((reg) => {
@@ -16,7 +16,7 @@ const toastMessage = document.querySelector(".toast-body");
             });
     }
 
-}); 
+});
 
 
 
@@ -94,9 +94,9 @@ function mostrarPeliculas(pelicula) {
 
     let divZoom = crearEtiqueta("div", { class: "zoom" });
 
-    let button = crearEtiqueta("button", { class: "bi bi-heart-fill", id:`fav-${pelicula.id}`, onclick: "agregarFavoritos(event)"});
+    let button = crearEtiqueta("button", { class: "bi bi-heart-fill", id: `fav-${pelicula.id}`, onclick: "agregarFavoritos(event)" });
 
-    if(localFav.some(peli => peli.id === pelicula.id)){
+    if (localFav.some(peli => peli.id === pelicula.id)) {
         button.style.color = "red";
     }
 
@@ -155,72 +155,121 @@ window.addEventListener("beforeinstallprompt", (e) => {
 });
 
 // Traigo botón con DOM e instalo
-    const btnInstalacion = document.querySelector(".btn-flotante");
+const btnInstalacion = document.querySelector(".btn-flotante");
 
-    btnInstalacion.addEventListener("click", () => {
-        console.log("click en instalar");
-        if (eventoInstalacion && eventoInstalacion.prompt) {
-            eventoInstalacion.prompt()
-                .then((resultado) => {
-                    const opcionElegida = resultado.outcome;
-                    if (opcionElegida == "dismissed") {
-                        toast.show(toastMessage.innerText = "Instalación Cancelada");
-                    } else if (opcionElegida == "accepted") {
-                        toast.show(toastMessage.innerText = "Instalación Completa");
-                        ocultarBtnInstalacion(btnInstalacion);
-                    }
-                })
-                .catch((error) => console.log("Hubo un error al instalar"))
-        }
-    }); 
+btnInstalacion.addEventListener("click", () => {
+    console.log("click en instalar");
+    if (eventoInstalacion && eventoInstalacion.prompt) {
+        eventoInstalacion.prompt()
+            .then((resultado) => {
+                const opcionElegida = resultado.outcome;
+                if (opcionElegida == "dismissed") {
+                    toast.show(toastMessage.innerText = "Instalación Cancelada");
+                } else if (opcionElegida == "accepted") {
+                    toast.show(toastMessage.innerText = "Instalación Completa");
+                    ocultarBtnInstalacion(btnInstalacion);
+                }
+            })
+            .catch((error) => console.log("Hubo un error al instalar"))
+    }
+});
 
 
 
 // Oculto botón si ya se instaló
 
- const ocultarBtnInstalacion = (btn) => {
-    btn.style.display = "none";  
-} 
- setTimeout(() => {
-    if(eventoInstalacion == null){
+const ocultarBtnInstalacion = (btn) => {
+    btn.style.display = "none";
+}
+setTimeout(() => {
+    if (eventoInstalacion == null) {
         ocultarBtnInstalacion();
-         }
-}, 200); 
+    }
+}, 200);
 
-    
+
 const agregarFavoritos = (event) => {
 
     const idBtn = event.target.id.split('-')[1];
     event.target.style.color = "red";
-    
+
     const favAgregado = resultados.find(pelicula => pelicula.id == idBtn);
-    
-    if(!(localFav.some(peli => peli.id === favAgregado.id))){
-       localFav.push(favAgregado);
-    } 
-     
+
+    if (!(localFav.some(peli => peli.id === favAgregado.id))) {
+        localFav.push(favAgregado);
+    }
+
     localStorage.setItem("favoritos", JSON.stringify(localFav));
 
 }
 
 const exampleModal = document.getElementById('exampleModal')
 if (exampleModal) {
-  exampleModal.addEventListener('show.bs.modal', event => {
-    // Button that triggered the modal
-    const button = event.relatedTarget
-    // Extract info from data-bs-* attributes
-    const recipient = button.getAttribute('data-bs-whatever')
-    // If necessary, you could initiate an Ajax request here
-    // and then do the updating in a callback.
+    exampleModal.addEventListener('show.bs.modal', event => {
+        // Button that triggered the modal
+        const button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        const recipient = button.getAttribute('data-bs-whatever')
+        // If necessary, you could initiate an Ajax request here
+        // and then do the updating in a callback.
 
-    // Update the modal's content.
-    const modalTitle = exampleModal.querySelector('.modal-title')
-    const modalBodyInput = exampleModal.querySelector('.modal-body input')
+        // Update the modal's content.
+        const modalTitle = exampleModal.querySelector('.modal-title')
+        const modalBodyInput = exampleModal.querySelector('.modal-body input')
 
-    modalTitle.textContent = `New message to ${recipient}`
-    modalBodyInput.value = recipient
-  })
+        modalTitle.textContent = `New message to ${recipient}`
+        modalBodyInput.value = recipient
+    })
 }
 
 
- 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+    apiKey: "AIzaSyDsC9nrHxys2DUADzUv0YfP9LAYDuxsxos",
+    authDomain: "moviedb-3df96.firebaseapp.com",
+    projectId: "moviedb-3df96",
+    storageBucket: "moviedb-3df96.appspot.com",
+    messagingSenderId: "930719564439",
+    appId: "1:930719564439:web:388ef2ecb83cd938bc9fd2",
+    measurementId: "G-QRR4S02EM8"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+
+// Funcion que valida los datos ingresados en el form
+
+const loginButton = document.querySelector(".loginbutton");
+const inputEmail = document.getElementById("email_log");
+const formLogin = document.getElementById("formLogin");
+
+formLogin.addEventListener('submit', (e) => {
+    e.preventDefault();
+    console.log(inputEmail.value);
+
+    /*
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+
+            const user = userCredential.user;
+
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            toast.show(toastMessage.innerText = `${errorMessage}`);
+        });*/
+
+})
+
+
+
