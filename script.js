@@ -94,7 +94,9 @@ function mostrarPeliculas(pelicula) {
 
     let divZoom = crearEtiqueta("div", { class: "zoom" });
 
-    let button = crearEtiqueta("button", { class: "bi bi-heart-fill", id: `fav-${pelicula.id}`, onclick: "agregarFavoritos(event)" });
+    let button = crearEtiqueta("button", { class: "bi bi-heart-fill", id: `fav-${pelicula.id}`});
+
+    button.addEventListener('click', agregarFavoritos);
 
     if (localFav.some(peli => peli.id === pelicula.id)) {
         button.style.color = "red";
@@ -203,6 +205,7 @@ const agregarFavoritos = (event) => {
 
 }
 
+
 const exampleModal = document.getElementById('exampleModal')
 if (exampleModal) {
     exampleModal.addEventListener('show.bs.modal', event => {
@@ -248,28 +251,26 @@ const auth = getAuth(app);
 
 // Funcion que valida los datos ingresados en el form
 
-const loginButton = document.querySelector(".loginbutton");
+
 const inputEmail = document.getElementById("email_log");
+const inputContra = document.getElementById("contra_log");
 const formLogin = document.getElementById("formLogin");
 
 formLogin.addEventListener('submit', (e) => {
     e.preventDefault();
-    console.log(inputEmail.value);
-
-    /*
-    signInWithEmailAndPassword(auth, email, password)
+    
+    signInWithEmailAndPassword(auth, inputEmail.value, inputContra.value)
         .then((userCredential) => {
-
             const user = userCredential.user;
-
+            toast.show(toastMessage.innerText = `${user.email} ha iniciado sesión`);
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             toast.show(toastMessage.innerText = `${errorMessage}`);
-        });*/
+        });
 
-})
+});
 
 
 
